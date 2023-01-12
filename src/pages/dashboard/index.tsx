@@ -108,26 +108,25 @@ export default function Dashboard() {
                         </Text>
                       </Box>
                     </Td>
-                    {isWideVersion ? (
+                    {isWideVersion ?? (
                       <Td>
                         <Text fontWeight="bold">{user.dob.age}</Text>
                       </Td>
-                    ) : (
-                      ''
                     )}
-                    {isWideVersion ? (
+                    {isWideVersion ?? (
+                      <Td>
+                        <Text fontWeight="bold">{user.dob.age}</Text>
+                      </Td>
+                    )}
+                    {isWideVersion ?? (
                       <Td>
                         <Text fontWeight="bold">{user.login.username}</Text>
                       </Td>
-                    ) : (
-                      ''
                     )}
-                    {isWideVersion ? (
+                    {isWideVersion ?? (
                       <Td>
                         <Text fontWeight="bold">{user.email}</Text>
                       </Td>
-                    ) : (
-                      ''
                     )}
                     <Button></Button>
                   </Tr>
