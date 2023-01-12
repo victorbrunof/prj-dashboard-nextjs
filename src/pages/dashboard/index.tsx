@@ -17,6 +17,7 @@ import axios from 'axios';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Container } from '../../components/Container';
+import { Pagination } from '../../components/Pagination';
 
 interface User {
   name: {
@@ -38,6 +39,8 @@ interface User {
 
 export default function Dashboard() {
   const [user, setUser] = useState<User[]>([]);
+  const [pagination, setPagination] = useState(1);
+  const [totalData, setTotalData] = useState(10);
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -48,7 +51,7 @@ export default function Dashboard() {
     const response = await axios.get('https://randomuser.me/api/', {
       params: {
         results: 5,
-        // page: pagination,
+        page: pagination,
         seed: 'abc',
       },
     });
@@ -134,6 +137,13 @@ export default function Dashboard() {
               })}
             </Tbody>
           </Table>
+
+          <Pagination
+            setPagination={setPagination}
+            pagination={pagination}
+            setTotalData={setTotalData}
+            totalData={totalData}
+          />
         </Box>
       </Container>
     </>
