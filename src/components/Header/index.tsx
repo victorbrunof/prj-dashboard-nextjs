@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { RiMenuLine } from 'react-icons/ri';
 import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext';
+import { Logo } from './Logo';
 import { Profile } from './Profile';
 
 export function Header() {
@@ -39,12 +40,7 @@ export function Header() {
         ></IconButton>
       )}
 
-      <Image
-        src="https://www.sharenergy.com.br/wp-content/uploads/2022/12/logo_color.png"
-        alt="logo"
-        w="100%"
-        maxW="12rem"
-      />
+      <Logo />
 
       <Flex align="center" ml="auto">
         {/* <NotificationsNav /> */}
