@@ -9,11 +9,56 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
+  Image,
+  Text,
 } from '@chakra-ui/react';
+import axios from 'axios';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import { Container } from '../../components/Container';
 
+interface User {
+  name: {
+    first: string;
+    last: string;
+  };
+  dob: {
+    age: number;
+  };
+  picture: {
+    large: string;
+    medium: string;
+  };
+  login: {
+    username: string;
+  };
+  email: string;
+}
+
 export default function Dashboard() {
+  const [user, setUser] = useState<User[]>([]);
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
+  const fetchUsers = async () => {
+    const response = await axios.get('https://randomuser.me/api/', {
+      params: {
+        results: 5,
+        // page: pagination,
+        seed: 'abc',
+      },
+    });
+    setUser(response.data.results);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   return (
     <>
       <Head>
@@ -36,24 +81,58 @@ export default function Dashboard() {
               <Tr>
                 <Th></Th>
                 <Th>Usuário</Th>
-                <Th>Idade</Th>
-                <Th>Username</Th>
-                <Th>Email</Th>
+                {isWideVersion && <Th>Idade</Th>}
+                {isWideVersion && <Th>Username</Th>}
+                {isWideVersion && <Th>Email</Th>}
                 <Th w="8"></Th>
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td px="6" color="gray.300" width="4">
-                  Image
-                </Td>
-                <Td>Victor</Td>
-                <Td>Victor32</Td>
-                <Td>Victorbrunof@icloud.com</Td>
-                <Td>
-                  <Button></Button>
-                </Td>
-              </Tr>
+              {user.map((user, i) => {
+                return (
+                  <Tr key={i}>
+                    <Td px={['4', '4', '6']}>
+                      <Box bg="gray.700" w="8" h="8" borderRadius="50%">
+                        <Image
+                          src={user.picture.medium}
+                          alt={user.name.first}
+                          borderRadius="full"
+                        />
+                      </Box>
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">{user.name.first}</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          {user.name.last}
+                        </Text>
+                      </Box>
+                    </Td>
+                    {isWideVersion ? (
+                      <Td>
+                        <Text fontWeight="bold">{user.dob.age}</Text>
+                      </Td>
+                    ) : (
+                      ''
+                    )}
+                    {isWideVersion ? (
+                      <Td>
+                        <Text fontWeight="bold">{user.login.username}</Text>
+                      </Td>
+                    ) : (
+                      ''
+                    )}
+                    {isWideVersion ? (
+                      <Td>
+                        <Text fontWeight="bold">{user.email}</Text>
+                      </Td>
+                    ) : (
+                      ''
+                    )}
+                    <Button></Button>
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
         </Box>
