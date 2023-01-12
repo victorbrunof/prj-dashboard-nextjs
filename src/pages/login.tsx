@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../components/Form/Input';
+import Router from 'next/router';
 
 interface SignInFormData {
   email: string;
@@ -34,7 +35,7 @@ export function Login() {
       data.password === '123456' ||
       data.email === 'victorbrunof@icloud.com'
     ) {
-      reset();
+      Router.push('/dashboard');
     } else {
       alert('Senha ou email incorretos');
     }
