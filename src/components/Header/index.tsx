@@ -6,12 +6,12 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { RiMenuLine } from 'react-icons/ri';
-import { Logo } from './Logo';
-import { NotificationsNav } from './NotificationsNav';
+import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext';
 import { Profile } from './Profile';
-import { SearchBox } from './SearchBox';
 
 export function Header() {
+  const { onOpen } = useSidebarDrawer();
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -34,6 +34,7 @@ export function Header() {
           icon={<Icon as={RiMenuLine} />}
           fontSize="24"
           variant="unstyled"
+          onClick={onOpen}
           mr="2"
         ></IconButton>
       )}
