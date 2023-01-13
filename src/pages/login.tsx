@@ -7,12 +7,12 @@ import { Input } from '../components/Form/Input';
 import Router from 'next/router';
 
 interface SignInFormData {
-  email: string;
+  user: string;
   password: string;
 }
 
 const signInFormSchema = z.object({
-  email: z.string().email('E-mail inválido'),
+  user: z.string(),
   password: z
     .string()
     .nonempty('Senha obrigatória')
@@ -31,13 +31,10 @@ export function Login() {
 
   async function handleSignIn(data: SignInFormData) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    if (
-      data.password === '123456' ||
-      data.email === 'victorbrunof@icloud.com'
-    ) {
+    if (data.password === '123456' || data.user === 'victor') {
       Router.push('/dashboard');
     } else {
-      alert('Senha ou email incorretos');
+      alert('Senha ou user incorretos');
     }
   }
 
@@ -62,14 +59,16 @@ export function Login() {
         >
           <Stack spacing="4">
             <Input
-              type="email"
-              label="E-mail"
-              error={errors.email}
-              {...register('email')}
+              type="user"
+              label="Usuário"
+              defaultValue={'Victor'}
+              error={errors.user}
+              {...register('user')}
             />
             <Input
               type="password"
               label="Senha"
+              defaultValue={'123456'}
               error={errors.password}
               {...register('password')}
             />
