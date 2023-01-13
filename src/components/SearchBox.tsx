@@ -4,9 +4,10 @@ import { RiSearchLine } from 'react-icons/ri';
 
 interface SearchBoxProps {
   childToParent: (childData: string) => void;
+  placeholder?: string;
 }
 
-export function SearchBox({ childToParent }: SearchBoxProps) {
+export function SearchBox({ childToParent, ...props }: SearchBoxProps) {
   const [search, setSearch] = useState('');
 
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +33,7 @@ export function SearchBox({ childToParent }: SearchBoxProps) {
         variant="unstyled"
         px="4"
         mr="4"
-        placeholder="Buscar"
+        placeholder={props.placeholder}
         _placeholder={{ color: 'gray.400' }}
         ref={searchInputRef}
         onChange={(e) => {

@@ -13,7 +13,7 @@ export function SidebarNav() {
         <NavLink icon={RiContactsLine} href="/users">
           Usuários
         </NavLink>
-        <NavLink icon={RiContactsLine} href="/cat">
+        <NavLink icon={RiContactsLine} href="/searchCat">
           Buscar Gato
         </NavLink>
         <NavLink icon={RiContactsLine} href="/dog">
