@@ -89,8 +89,12 @@ export default function ModalCrudUser({
   });
 
   async function handleCrudUser(data: CreateUserInput) {
-    if (edit) {
+    console.log(edit);
+    if (edit === 'edit') {
       console.log('edit', data);
+    } else if (edit === 'delete') {
+      console.log('delete', id);
+      onClose();
     } else {
       console.log('create', data);
     }
@@ -177,7 +181,14 @@ export default function ModalCrudUser({
                 {edit ? 'Editar' : 'Criar'}
               </Button>
               {edit && (
-                <Button colorScheme="red" onClick={onClose}>
+                <Button
+                  type="submit"
+                  colorScheme="red"
+                  isLoading={isSubmitting}
+                  onClick={() => {
+                    edit = 'delete';
+                  }}
+                >
                   Delete
                 </Button>
               )}
