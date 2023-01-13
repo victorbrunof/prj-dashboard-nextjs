@@ -1,4 +1,4 @@
-import { Box, Flex, Image, SimpleGrid } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 import { SearchBox } from '../../components/SearchBox';
 import { Container } from '../../components/Container';
