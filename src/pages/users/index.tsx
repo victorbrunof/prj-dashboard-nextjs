@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { RiPencilLine } from 'react-icons/ri';
 import { Container } from '../../components/Container';
 import { Pagination } from '../../components/Pagination';
-import DashboardModal from './modalCrudUser';
+import ModalCrudUser from './modalCrudUser';
 
 export default function Users() {
   const [pagination, setPagination] = useState(1);
@@ -63,7 +63,7 @@ export default function Users() {
             <Heading size="lg" fontWeight="normal">
               Usuários
             </Heading>
-            <DashboardModal />
+            <ModalCrudUser />
           </Flex>
 
           <Table colorScheme="whiteAlpha">
@@ -107,26 +107,14 @@ export default function Users() {
                       </Td>
                     )}
                     <Td>
-                      <Button
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                      >
-                        {isWideVersion ? 'Editar' : ''}
-                      </Button>
-                    </Td>
-                    <Td>
-                      {isWideVersion && (
-                        <Button
-                          size="sm"
-                          fontSize="sm"
-                          colorScheme="purple"
-                          leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                        >
-                          {isWideVersion ? 'Deletar' : ''}
-                        </Button>
-                      )}
+                      <ModalCrudUser
+                        edit={'edit'}
+                        id={user.id}
+                        name={user.name}
+                        email={user.email}
+                        phone={user.phone}
+                        cpf={user.cpf}
+                      />
                     </Td>
                   </Tr>
                 );
