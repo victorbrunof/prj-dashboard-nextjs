@@ -16,10 +16,10 @@ import {
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useState } from 'react';
-import { RiAddLine, RiPencilLine } from 'react-icons/ri';
+import { RiPencilLine } from 'react-icons/ri';
 import { Container } from '../../components/Container';
 import { Pagination } from '../../components/Pagination';
-import ModalCrudUser from './modalCrudUser';
+import DashboardModal from './modalCrudUser';
 
 export default function Users() {
   const [pagination, setPagination] = useState(1);
@@ -63,7 +63,7 @@ export default function Users() {
             <Heading size="lg" fontWeight="normal">
               Usuários
             </Heading>
-            <ModalCrudUser />
+            <DashboardModal />
           </Flex>
 
           <Table colorScheme="whiteAlpha">
