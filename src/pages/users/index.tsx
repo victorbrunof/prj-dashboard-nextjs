@@ -19,6 +19,7 @@ import { useState } from 'react';
 import { RiAddLine, RiPencilLine } from 'react-icons/ri';
 import { Container } from '../../components/Container';
 import { Pagination } from '../../components/Pagination';
+import ModalCrudUser from './modalCrudUser';
 
 export default function Users() {
   const [pagination, setPagination] = useState(1);
@@ -62,14 +63,7 @@ export default function Users() {
             <Heading size="lg" fontWeight="normal">
               Usuários
             </Heading>
-            <Button
-              size="sm"
-              fontSize="sm"
-              colorScheme="pink"
-              leftIcon={<Icon as={RiAddLine} fontSize="20" />}
-            >
-              Criar novo {isWideVersion && 'Usuário'}
-            </Button>
+            <ModalCrudUser />
           </Flex>
 
           <Table colorScheme="whiteAlpha">
@@ -123,14 +117,16 @@ export default function Users() {
                       </Button>
                     </Td>
                     <Td>
-                      <Button
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                      >
-                        {isWideVersion ? 'Deletar' : ''}
-                      </Button>
+                      {isWideVersion && (
+                        <Button
+                          size="sm"
+                          fontSize="sm"
+                          colorScheme="purple"
+                          leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                        >
+                          {isWideVersion ? 'Deletar' : ''}
+                        </Button>
+                      )}
                     </Td>
                   </Tr>
                 );
