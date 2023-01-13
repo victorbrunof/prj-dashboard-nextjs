@@ -60,12 +60,12 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [pagination]);
 
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>DashBoard</title>
         <meta name="description" content="Realizar Login" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
@@ -75,7 +75,7 @@ export default function Dashboard() {
         <Box flex="1" borderRadius={8} bg="gray.800" p="8">
           <Flex mb="8" justify="space-between" align="center">
             <Heading size="lg" fontWeight="normal">
-              Usuários
+              Usuários Da Api RandomUser
             </Heading>
           </Flex>
 
