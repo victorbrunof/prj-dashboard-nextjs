@@ -18,6 +18,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Container } from '../../components/Container';
 import { Pagination } from '../../components/Pagination';
+import ModalUsers from './modalUsers';
 
 interface User {
   name: {
@@ -118,11 +119,6 @@ export default function Dashboard() {
                     )}
                     {isWideVersion && (
                       <Td>
-                        <Text fontWeight="bold">{user.dob.age}</Text>
-                      </Td>
-                    )}
-                    {isWideVersion && (
-                      <Td>
                         <Text fontWeight="bold">{user.login.username}</Text>
                       </Td>
                     )}
@@ -131,7 +127,15 @@ export default function Dashboard() {
                         <Text fontWeight="bold">{user.email}</Text>
                       </Td>
                     )}
-                    <Button></Button>
+                    <Td>
+                      <ModalUsers
+                        picture={user.picture.large}
+                        name={user.name.first + ' ' + user.name.last}
+                        age={user.dob.age}
+                        username={user.login.username}
+                        email={user.email}
+                      />
+                    </Td>
                   </Tr>
                 );
               })}
