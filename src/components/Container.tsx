@@ -1,7 +1,8 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
+import { Footer } from './Footer';
 
 interface InterfaceProps {
   children: ReactNode;
@@ -18,10 +19,12 @@ export function Container({ children }: InterfaceProps) {
         maxWidth={1480}
         mx="auto"
         px={{ base: '2', lg: '6' }}
+        mb="10%"
       >
         <Sidebar />
         {children}
       </Flex>
+      <Footer />
     </Flex>
   );
 }
