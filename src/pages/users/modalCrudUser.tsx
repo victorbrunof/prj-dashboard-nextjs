@@ -98,11 +98,15 @@ export default function ModalCrudUser({
     return context.editUsers;
   });
 
+  const deleteUser = useContextSelector(UsersContext, (context) => {
+    return context.deleteUsers;
+  });
+
   async function handleCrudUser(data: CreateUserInput) {
     if (edit === 'edit') {
       await editUser({ _id, ...data });
     } else if (edit === 'delete') {
-      console.log('delete', _id);
+      await deleteUser({ _id });
       onClose();
     } else {
       await createUser(data);

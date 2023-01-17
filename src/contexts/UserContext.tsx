@@ -27,11 +27,16 @@ interface EditUserInput {
   cpf: string;
 }
 
+interface DeleteUserInput {
+  _id?: string;
+}
+
 interface UserContextType {
   users: User[];
   fetchUsers: (query?: number, orcamento?: number) => Promise<void>;
   createUsers: (data: CreateUserInput) => Promise<void>;
   editUsers: (data: EditUserInput) => Promise<void>;
+  deleteUsers: (data: DeleteUserInput) => Promise<void>;
 }
 
 interface UsersProviderProps {
@@ -73,18 +78,26 @@ export function UsersProvider({ children }: UsersProviderProps) {
 
     try {
       const response = await api.put('/client', {
-        params: {
-          _id,
-        },
+        _id,
         name,
         email,
         phone,
         cpf,
       });
-      console.log(response.data.data);
-      setUsers((state) =>
-        state.map((user) => (user._id === _id ? response.data.data : user))
-      );
+      fetchUsers();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const deleteUsers = useCallback(async (data: DeleteUserInput) => {
+    try {
+      const response = await api.delete('/client', {
+        params: {
+          _id: data._id,
+        },
+      });
+      setUsers((state) => state.filter((user) => user._id !== data._id));
     } catch (error) {
       console.log(error);
     }
@@ -96,7 +109,7 @@ export function UsersProvider({ children }: UsersProviderProps) {
 
   return (
     <UsersContext.Provider
-      value={{ users, fetchUsers, createUsers, editUsers }}
+      value={{ users, fetchUsers, createUsers, editUsers, deleteUsers }}
     >
       {children}
     </UsersContext.Provider>

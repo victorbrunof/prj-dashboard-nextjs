@@ -32,5 +32,32 @@ export default async function handler(
         res.status(500).json({ sucess: false, error });
       }
       break;
+
+    case 'PUT':
+      try {
+        const { _id, name, email, phone, cpf } = req.body;
+
+        if (!name || !email || !phone || !cpf) throw new Error('Missing data');
+        const client = await Client.updateOne(
+          { _id },
+          { name, email, phone, cpf }
+        );
+        res.status(200).json({ sucess: true, data: client });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ sucess: false, error });
+      }
+      break;
+
+    case 'DELETE':
+      try {
+        const { _id } = req.query;
+        const client = await Client.deleteOne({ _id });
+        res.status(200).json({ sucess: true });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ sucess: false, error });
+      }
+      break;
   }
 }
