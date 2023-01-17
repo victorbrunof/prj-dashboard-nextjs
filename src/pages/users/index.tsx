@@ -1,10 +1,7 @@
 import {
   Box,
-  Button,
   Flex,
   Heading,
-  Icon,
-  Link,
   Text,
   Table,
   Tbody,
@@ -15,39 +12,40 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import { useState } from 'react';
-import { RiPencilLine } from 'react-icons/ri';
+import { useEffect, useState } from 'react';
 import { Container } from '../../components/Container';
 import { Pagination } from '../../components/Pagination';
+import { api } from '../../services/api';
 import ModalCrudUser from './modalCrudUser';
+
+interface User {
+  _id: number;
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
+  createdAt: string;
+}
 
 export default function Users() {
   const [pagination, setPagination] = useState(1);
   const [totalData, setTotalData] = useState(10);
+  const [users, setUsers] = useState<User[]>([]);
 
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
 
-  const Users = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: '',
-      created_at: '04 de Abril, 2021',
-      phone: '(11) 99999-9999',
-      cpf: '999.999.999-99',
-    },
-    {
-      id: 2,
-      name: 'Victor',
-      email: 'victorbrunof@icloud.com',
-      created_at: '04 de Abril, 2021',
-      phone: '(11) 99999-9999',
-      cpf: '999.999.999-99',
-    },
-  ];
+  async function fetchUsers() {
+    const response = await api.get('/client');
+
+    setUsers(response.data.data);
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <>
@@ -78,9 +76,9 @@ export default function Users() {
               </Tr>
             </Thead>
             <Tbody>
-              {Users.map((user) => {
+              {users.map((user) => {
                 return (
-                  <Tr key={user.id}>
+                  <Tr key={user._id}>
                     <Td>
                       <Box>
                         <Text fontWeight="bold">{user.name}</Text>
@@ -93,7 +91,7 @@ export default function Users() {
                     </Td>
                     {isWideVersion && (
                       <Td>
-                        <Text fontWeight="bold">22/12/1997</Text>
+                        <Text fontWeight="bold">{user.createdAt}</Text>
                       </Td>
                     )}
                     {isWideVersion && (
@@ -109,11 +107,12 @@ export default function Users() {
                     <Td>
                       <ModalCrudUser
                         edit={'edit'}
-                        id={user.id}
+                        id={user._id}
                         name={user.name}
                         email={user.email}
                         phone={user.phone}
                         cpf={user.cpf}
+                        setUsers={setUsers}
                       />
                     </Td>
                   </Tr>

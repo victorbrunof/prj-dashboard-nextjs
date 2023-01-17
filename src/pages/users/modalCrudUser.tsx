@@ -22,7 +22,7 @@ import { RiAddLine, RiPencilLine } from 'react-icons/ri';
 import { useForm } from 'react-hook-form';
 
 interface ModalCrudUserProps {
-  id?: number;
+  id?: string;
   name?: string;
   email?: string;
   phone?: string;
