@@ -16,10 +16,12 @@ import { useEffect, useState } from 'react';
 import { Container } from '../../components/Container';
 import { Pagination } from '../../components/Pagination';
 import { api } from '../../services/api';
+import { useContextSelector } from 'use-context-selector';
 import ModalCrudUser from './modalCrudUser';
+import { UsersContext } from '../../contexts/UserContext';
 
 interface User {
-  _id: number;
+  _id: string;
   name: string;
   email: string;
   phone: string;
@@ -30,22 +32,15 @@ interface User {
 export default function Users() {
   const [pagination, setPagination] = useState(1);
   const [totalData, setTotalData] = useState(10);
-  const [users, setUsers] = useState<User[]>([]);
 
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
 
-  async function fetchUsers() {
-    const response = await api.get('/client');
-
-    setUsers(response.data.data);
-  }
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const users = useContextSelector(UsersContext, (context) => {
+    return context.users;
+  });
 
   return (
     <>
@@ -76,7 +71,7 @@ export default function Users() {
               </Tr>
             </Thead>
             <Tbody>
-              {users.map((user) => {
+              {users?.map((user) => {
                 return (
                   <Tr key={user._id}>
                     <Td>
@@ -112,7 +107,6 @@ export default function Users() {
                         email={user.email}
                         phone={user.phone}
                         cpf={user.cpf}
-                        setUsers={setUsers}
                       />
                     </Td>
                   </Tr>
