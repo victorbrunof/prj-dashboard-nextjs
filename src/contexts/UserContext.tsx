@@ -67,7 +67,7 @@ export function UsersProvider({ children }: UsersProviderProps) {
         phone,
         cpf,
       });
-      setUsers([...users, response.data.data]);
+      setUsers((state) => [...state, response.data.data]);
     } catch (error) {
       console.log(error);
     }
