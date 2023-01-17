@@ -24,7 +24,7 @@ import { UsersContext } from '../../contexts/UserContext';
 import { useContextSelector } from 'use-context-selector';
 
 interface ModalCrudUserProps {
-  id?: string;
+  _id?: string;
   name?: string;
   email?: string;
   phone?: string;
@@ -68,7 +68,7 @@ const createUserFormSchema = z.object({
 type CreateUserFormInputs = z.infer<typeof createUserFormSchema>;
 
 export default function ModalCrudUser({
-  id,
+  _id,
   name,
   email,
   phone,
@@ -94,12 +94,15 @@ export default function ModalCrudUser({
     return context.createUsers;
   });
 
+  const editUser = useContextSelector(UsersContext, (context) => {
+    return context.editUsers;
+  });
+
   async function handleCrudUser(data: CreateUserInput) {
-    console.log(edit);
     if (edit === 'edit') {
-      console.log('edit', data);
+      await editUser({ _id, ...data });
     } else if (edit === 'delete') {
-      console.log('delete', id);
+      console.log('delete', _id);
       onClose();
     } else {
       await createUser(data);
