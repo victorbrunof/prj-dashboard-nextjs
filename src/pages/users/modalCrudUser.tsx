@@ -20,6 +20,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../components/Form/Input';
 import { RiAddLine, RiPencilLine } from 'react-icons/ri';
 import { useForm } from 'react-hook-form';
+import { UsersContext } from '../../contexts/UserContext';
+import { useContextSelector } from 'use-context-selector';
 
 interface ModalCrudUserProps {
   id?: string;
@@ -88,6 +90,10 @@ export default function ModalCrudUser({
     resolver: zodResolver(createUserFormSchema),
   });
 
+  const createUser = useContextSelector(UsersContext, (context) => {
+    return context.createUsers;
+  });
+
   async function handleCrudUser(data: CreateUserInput) {
     console.log(edit);
     if (edit === 'edit') {
@@ -96,7 +102,7 @@ export default function ModalCrudUser({
       console.log('delete', id);
       onClose();
     } else {
-      console.log('create', data);
+      await createUser(data);
     }
   }
 

@@ -12,9 +12,17 @@ interface User {
   //   updatedAt: string;
 }
 
+interface CreateUserInput {
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
+}
+
 interface UserContextType {
   users: User[];
   fetchUsers: (query?: number, orcamento?: number) => Promise<void>;
+  createUsers: (data: CreateUserInput) => Promise<void>;
 }
 
 interface UsersProviderProps {
@@ -36,12 +44,27 @@ export function UsersProvider({ children }: UsersProviderProps) {
     }
   }, []);
 
+  const createUsers = useCallback(async (data: CreateUserInput) => {
+    const { name, email, phone, cpf } = data;
+    try {
+      const response = await api.post('/client', {
+        name,
+        email,
+        phone,
+        cpf,
+      });
+      setUsers([...users, response.data.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   useEffect(() => {
     fetchUsers();
   }, []);
 
   return (
-    <UsersContext.Provider value={{ users, fetchUsers }}>
+    <UsersContext.Provider value={{ users, fetchUsers, createUsers }}>
       {children}
     </UsersContext.Provider>
   );
