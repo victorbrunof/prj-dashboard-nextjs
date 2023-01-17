@@ -21,7 +21,7 @@ const signInFormSchema = z.object({
 
 type SignInFormInputs = z.infer<typeof signInFormSchema>;
 
-export function Login() {
+export default function Login() {
   const {
     register,
     handleSubmit,
