@@ -22,6 +22,7 @@ import { RiAddLine, RiPencilLine } from 'react-icons/ri';
 import { useForm } from 'react-hook-form';
 import { UsersContext } from '../../contexts/UserContext';
 import { useContextSelector } from 'use-context-selector';
+import InputMask from 'react-input-mask';
 
 interface ModalCrudUserProps {
   _id?: string;
@@ -51,18 +52,18 @@ const createUserFormSchema = z.object({
   }),
   phone: z
     .string()
-    .min(11, {
+    .min(15, {
       message: 'phone precisa ter 11 digitos',
     })
-    .max(11),
+    .max(15),
   cpf: z
     .string({
       invalid_type_error: 'CPF inválido',
     })
-    .min(11, {
+    .min(14, {
       message: 'CPF precisa ter 11 digitos',
     })
-    .max(11),
+    .max(14),
 });
 
 type CreateUserFormInputs = z.infer<typeof createUserFormSchema>;
@@ -166,16 +167,20 @@ export default function ModalCrudUser({
                     {...register('email')}
                   />
                   <Input
+                    as={InputMask}
                     type="phone"
                     label="phone"
                     defaultValue={edit && phone}
+                    mask="(99) 99999-9999"
                     error={errors.phone}
                     {...register('phone')}
                   />
                   <Input
+                    as={InputMask}
                     type="cpf"
                     label="Cpf"
                     defaultValue={edit && cpf}
+                    mask="999.999.999-99"
                     error={errors.cpf}
                     {...register('cpf')}
                   />

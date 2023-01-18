@@ -19,6 +19,7 @@ import { api } from '../../services/api';
 import { useContextSelector } from 'use-context-selector';
 import ModalCrudUser from './modalCrudUser';
 import { UsersContext } from '../../contexts/UserContext';
+import { dateFormatter } from '../../utils/formatter';
 
 interface User {
   _id: string;
@@ -86,7 +87,9 @@ export default function Users() {
                     </Td>
                     {isWideVersion && (
                       <Td>
-                        <Text fontWeight="bold">{user.createdAt}</Text>
+                        <Text fontWeight="bold">
+                          {dateFormatter.format(new Date(user.createdAt))}
+                        </Text>
                       </Td>
                     )}
                     {isWideVersion && (
