@@ -18,8 +18,9 @@ export function Container({ children }: InterfaceProps) {
         my="6"
         maxWidth={1480}
         mx="auto"
+        h={{ base: '100%', lg: 'auto' }}
         px={{ base: '2', lg: '6' }}
-        mb="10%"
+        mb={{ base: '0', lg: '5%' }}
       >
         <Sidebar />
         {children}
