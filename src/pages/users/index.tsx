@@ -12,23 +12,13 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Container } from '../../components/Container';
 import { Pagination } from '../../components/Pagination';
-import { api } from '../../services/api';
 import { useContextSelector } from 'use-context-selector';
 import ModalCrudUser from './modalCrudUser';
 import { UsersContext } from '../../contexts/UserContext';
 import { dateFormatter } from '../../utils/formatter';
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  phone: string;
-  cpf: string;
-  createdAt: string;
-}
 
 export default function Users() {
   const [pagination, setPagination] = useState(1);
@@ -67,7 +57,6 @@ export default function Users() {
                 {isWideVersion && <Th>Data de criação</Th>}
                 {isWideVersion && <Th>Telefone</Th>}
                 {isWideVersion && <Th>CPF</Th>}
-                <Th w="8"></Th>
                 <Th w="8"></Th>
               </Tr>
             </Thead>

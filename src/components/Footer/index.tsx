@@ -21,13 +21,22 @@ export function Footer() {
       >
         <Text>© 2023 Victor Bruno</Text>
         <Stack direction={'row'} spacing={6}>
-          <SocialButton label={'GitHub'} href={'#'}>
+          <SocialButton
+            label={'GitHub'}
+            href={'https://github.com/victorbrunof?tab=repositories'}
+          >
             <FaGithub />
           </SocialButton>
-          <SocialButton label={'linkedin'} href={'#'}>
+          <SocialButton
+            label={'linkedin'}
+            href={'https://www.linkedin.com/in/victorbrunof/'}
+          >
             <FaLinkedin />
           </SocialButton>
-          <SocialButton label={'Instagram'} href={'#'}>
+          <SocialButton
+            label={'Instagram'}
+            href={'https://www.instagram.com/victorbruno_a/'}
+          >
             <FaInstagram />
           </SocialButton>
         </Stack>

@@ -136,7 +136,7 @@ export default function ModalCrudUser({
           colorScheme="pink"
           leftIcon={<Icon as={RiAddLine} fontSize="20" />}
         >
-          Criar Novo Usuario
+          {isWideVersion ? 'Criar Novo Usuario' : ''}
         </Button>
       )}
       <Modal isOpen={isOpen} onClose={onClose}>
