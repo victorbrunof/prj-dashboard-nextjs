@@ -26,10 +26,10 @@ export default async function handler(
         const { name, email, phone, cpf } = req.body;
         if (!name || !email || !phone || !cpf) throw new Error('Missing data');
         const client = await Client.create({ name, email, phone, cpf });
-        res.status(201).json({ sucess: true, data: client });
+        res.status(201).json({ msg: 'Cadastrado com sucesso', data: client });
       } catch (error) {
         console.log(error);
-        res.status(500).json({ sucess: false, error });
+        res.status(500).json({ msg: 'Erro ao cadastrar', error });
       }
       break;
 
@@ -42,10 +42,10 @@ export default async function handler(
           { _id },
           { name, email, phone, cpf }
         );
-        res.status(200).json({ sucess: true, data: client });
+        res.status(200).json({ msg: 'Atualizado com sucesso', data: client });
       } catch (error) {
         console.log(error);
-        res.status(500).json({ sucess: false, error });
+        res.status(500).json({ msg: 'Erro ao atualizar', error });
       }
       break;
 
@@ -53,10 +53,10 @@ export default async function handler(
       try {
         const { _id } = req.query;
         const client = await Client.deleteOne({ _id });
-        res.status(200).json({ sucess: true });
+        res.status(200).json({ msg: 'Deletado com sucesso' });
       } catch (error) {
         console.log(error);
-        res.status(500).json({ sucess: false, error });
+        res.status(500).json({ msg: 'Erro ao deletar', error });
       }
       break;
   }
